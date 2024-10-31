@@ -132,7 +132,8 @@ class SplunkHecHandler(logging.Handler):
                 body.update({'message': ast.literal_eval(str(record.msg))})
         except Exception as err:
             logging.debug("Log record emit exception raised. Exception: %s " % err)
-            body.update({'message': record.msg})
+            message = record.getMessage()
+            body.update({'message': message})
 
         event = dict({'host': self.hostname, 'event': body, 'fields': {}})
 
